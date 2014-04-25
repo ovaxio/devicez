@@ -2,14 +2,29 @@
 <html>
 <head>
   <title>test</title>
+  <style type="text/css">
+    #result{
+      width:30%;
+      margin: 4em auto;
+      text-align: center;
+      font-size: 2em;
+    }
+  </style>
 </head>
 <body>
-<p>test
+<p id="result">
 </p>
 <script type="text/javascript" src="libs/build.js"></script>
 <script type="text/javascript">
 Devicez = require('devicez');
+events = require('event');
 device = new Devicez();
+
+function test(){
+  document.getElementById('result').innerHTML = device.currentOrientation;
+}
+test();
+events.bind(window, 'resize', test);
 
 </script>
 </body>
