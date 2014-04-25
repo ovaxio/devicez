@@ -1,0 +1,22 @@
+{
+  "name": "browserz",
+  "version": "0.0.1",
+  "devDependencies": {
+    "gulp-concat": "latest",
+    "gulp-coffee": "latest",
+    "gulp-uglify": "latest",
+    "gulp-util": "latest",
+    "gulp-stylus": "latest",
+    "gulp": "latest",
+    "gulp-jade": "latest",
+    "gulp-component": "latest",
+    "component": "latest",
+    "gulp-changed": "^0.3.0",
+    "node-static": "^0.7.3",
+    "gulp-livereload": "^1.2.0",
+    "tiny-lr": "0.0.5",
+    "open": "0.0.4",
+    "gulp-autoprefixer": "0.0.7",
+    "gulp-size": "^0.3.0"
+  }
+}

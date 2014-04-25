@@ -1,0 +1,17 @@
+{
+  "name": "devicez",
+  "repo": "ovaxio/browserz",
+  "description": "Some test on the device",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/emitter": "*",
+    "component/event": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
