@@ -11,7 +11,8 @@
 
 ## API
 
-
+## Test
+http://ovaxio.github.io/devicez/test/
 
 ## License
 
