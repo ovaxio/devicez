@@ -3,17 +3,25 @@
 <head>
   <title>test</title>
   <style type="text/css">
-    #result{
-      width:30%;
-      margin: 4em auto;
-      text-align: center;
-      font-size: 2em;
+    div{
+      margin: 2em;
+    }
+
+    #result{font-size: 2em;text-align: center;}
+    #object{
+      background-color: #ddd;
+      overflow: auto;
+      padding: 1em 2em;
+      box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.3) inset;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-<p id="result">
-</p>
+<div>
+  <p id="result"></p>
+  <pre id="object"></pre>
+</div>
 <script type="text/javascript" src="libs/build.js"></script>
 <script type="text/javascript">
 Devicez = require('devicez');
@@ -22,6 +30,7 @@ device = new Devicez();
 
 function test(){
   document.getElementById('result').innerHTML = device.currentOrientation;
+  document.getElementById('object').innerHTML = JSON.stringify(device);
 }
 test();
 events.bind(window, 'resize', test);
