@@ -1,20 +1,24 @@
 (function() {
   'use strict';
-  var Devicez, Emitter, emitter, events,
+  var Devicez, events, inverse,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-  Emitter = require('emitter');
 
   events = require('event');
 
-  emitter = new Emitter();
+  inverse = function(orientation) {
+    if (orientation === 'portrait') {
+      return 'landscape';
+    } else {
+      return 'portrait';
+    }
+  };
 
   Devicez = (function() {
     function Devicez() {
       this.orientation = __bind(this.orientation, this);
-      this.changeOrientation = __bind(this.changeOrientation, this);
+      this.onResize = __bind(this.onResize, this);
       this.currentOrientation = this.orientation();
-      emitter.on('changeOrientation', this.changeOrientation);
+      this.what = this.isWhat();
       events.bind(window, 'resize', this.onResize);
       this.defaultOrientation = (function() {
         var o, wO;
@@ -32,11 +36,8 @@
     }
 
     Devicez.prototype.onResize = function() {
-      return emitter.emit('changeOrientation');
-    };
-
-    Devicez.prototype.changeOrientation = function() {
-      return this.currentOrientation = this.orientation();
+      this.currentOrientation = this.orientation();
+      return this.what = this.isWhat();
     };
 
     Devicez.prototype.width = function() {
@@ -55,11 +56,13 @@
       }
     };
 
-    Devicez.prototype.inverse = function(orientation) {
-      if (orientation === 'portrait') {
-        return 'landscape';
+    Devicez.prototype.isWhat = function() {
+      if (this.width() < 768) {
+        return 'mobile';
+      } else if (this.width() < 961) {
+        return 'tablet';
       } else {
-        return 'portrait';
+        return 'desktop';
       }
     };
 

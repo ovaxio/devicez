@@ -1,13 +1,18 @@
 'use strict'
-Emitter = require 'emitter'
+# Emitter = require 'emitter'
 events = require 'event'
-emitter = new Emitter()
+# emitter = new Emitter()
+
+inverse = (orientation)->
+  return if orientation is 'portrait' then 'landscape' else 'portrait'
 
 class Devicez
   constructor :()->
     @currentOrientation = @orientation()
-    emitter.on 'changeOrientation', @changeOrientation
+    @what = @isWhat()
+    # emitter.on 'changeOrientation', @changeOrientation
     events.bind window, 'resize', @onResize
+
     # return the default orientation of a device
     # need the window.orientation variable
     @defaultOrientation = (()->
@@ -20,11 +25,12 @@ class Devicez
       )()
 
   #  on resize window, trigger the changeOrientation
-  onResize :()->
-    emitter.emit 'changeOrientation'
-
-  changeOrientation :()=>
+  onResize :()=>
+    # emitter.emit 'changeOrientation'
     @currentOrientation = @orientation()
+    @what = @isWhat()
+  # changeOrientation :()=>
+    # @currentOrientation = @orientation()
 
   width :()->
     return Math.max(
@@ -43,8 +49,14 @@ class Devicez
   orientation :()=>
     return if @width() > @height() then 'landscape' else 'portrait'
 
-  inverse :(orientation)->
-    return if orientation is 'portrait' then 'landscape' else 'portrait'
+  isWhat :()->
+    if @width() < 768
+      return 'mobile'
+    else if @width() < 961
+      return 'tablet'
+    else
+      return 'desktop'
+
 
 module.exports = Devicez
 

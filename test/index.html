@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>test</title>
   <style type="text/css">
     div{
-      margin: 2em;
+      margin: 1em;
     }
 
     #result{font-size: 2em;text-align: center;}
     #object{
       background-color: #ddd;
       overflow: auto;
-      padding: 1em 2em;
+      padding: 1em;
       box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.3) inset;
       border-radius: 5px;
     }
@@ -30,7 +31,7 @@ device = new Devicez();
 
 function test(){
   document.getElementById('result').innerHTML = device.currentOrientation;
-  document.getElementById('object').innerHTML = JSON.stringify(device);
+  document.getElementById('object').innerHTML = JSON.stringify(device,null, " ");
 }
 test();
 events.bind(window, 'resize', test);
