@@ -3,6 +3,7 @@
 # Required
 # --------------------------------------------
 events = require 'event'
+extend = require 'extend'
 
 # Private
 # --------------------------------------------
@@ -20,10 +21,16 @@ class Devicez
   # constructor
   #
   # --------------------------------------------------------------------
-  constructor :()->
+  constructor :(@options)->
     # Properties
     # --------------------------------------------
-    @what = @isWhat() #
+    defaults =
+      breakpoints :
+        mobile : 767
+        tablet : 960
+
+    @options = extend {}, defaults, @options
+    @what = @isWhat()
     @currentOrientation =
       name : @orientation()
       value : @orientationValue()
@@ -37,6 +44,7 @@ class Devicez
         o = _this.orientation()
         return if (wO is 0 or wO is 180) then o else inverse(o)
       )(@)
+
 
     # events
     # --------------------------------------------
@@ -88,9 +96,9 @@ class Devicez
   #  Return desktop/tablet/mobile as the type of device
   #  --------------------------------------------------------------------
   isWhat :()->
-    if @width() < 768
+    if @width() <= @options.breakpoints.mobile
       return 'mobile'
-    else if @width() < 961
+    else if @width() <= @options.breakpoints.tablet
       return 'tablet'
     else
       return 'desktop'

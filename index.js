@@ -1,9 +1,11 @@
 (function() {
   'use strict';
-  var Devicez, events, inverse,
+  var Devicez, events, extend, inverse,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   events = require('event');
+
+  extend = require('extend');
 
   inverse = function(orientation) {
     if (orientation === 'portrait') {
@@ -14,9 +16,18 @@
   };
 
   Devicez = (function() {
-    function Devicez() {
+    function Devicez(options) {
+      var defaults;
+      this.options = options;
       this.orientation = __bind(this.orientation, this);
       this.onResize = __bind(this.onResize, this);
+      defaults = {
+        breakpoints: {
+          mobile: 767,
+          tablet: 960
+        }
+      };
+      this.options = extend({}, defaults, this.options);
       this.what = this.isWhat();
       this.currentOrientation = {
         name: this.orientation(),
@@ -64,9 +75,9 @@
     };
 
     Devicez.prototype.isWhat = function() {
-      if (this.width() < 768) {
+      if (this.width() <= this.options.breakpoints.mobile) {
         return 'mobile';
-      } else if (this.width() < 961) {
+      } else if (this.width() <= this.options.breakpoints.tablet) {
         return 'tablet';
       } else {
         return 'desktop';

@@ -238,13 +238,32 @@ exports.unbind = function(el, type, fn, capture){
   return fn;
 };
 });
+require.register("segmentio-extend/index.js", function(exports, require, module){
+
+module.exports = function extend (object) {
+    // Takes an unlimited number of extenders.
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    // For each extender, copy their properties on our object.
+    for (var i = 0, source; source = args[i]; i++) {
+        if (!source) continue;
+        for (var property in source) {
+            object[property] = source[property];
+        }
+    }
+
+    return object;
+};
+});
 require.register("devicez/index.js", function(exports, require, module){
 (function() {
   'use strict';
-  var Devicez, events, inverse,
+  var Devicez, events, extend, inverse,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   events = require('event');
+
+  extend = require('extend');
 
   inverse = function(orientation) {
     if (orientation === 'portrait') {
@@ -255,9 +274,18 @@ require.register("devicez/index.js", function(exports, require, module){
   };
 
   Devicez = (function() {
-    function Devicez() {
+    function Devicez(options) {
+      var defaults;
+      this.options = options;
       this.orientation = __bind(this.orientation, this);
       this.onResize = __bind(this.onResize, this);
+      defaults = {
+        breakpoints: {
+          mobile: 767,
+          tablet: 960
+        }
+      };
+      this.options = extend({}, defaults, this.options);
       this.what = this.isWhat();
       this.currentOrientation = {
         name: this.orientation(),
@@ -305,9 +333,9 @@ require.register("devicez/index.js", function(exports, require, module){
     };
 
     Devicez.prototype.isWhat = function() {
-      if (this.width() < 768) {
+      if (this.width() <= this.options.breakpoints.mobile) {
         return 'mobile';
-      } else if (this.width() < 961) {
+      } else if (this.width() <= this.options.breakpoints.tablet) {
         return 'tablet';
       } else {
         return 'desktop';
@@ -331,7 +359,14 @@ require.register("devicez/index.js", function(exports, require, module){
 }).call(this);
 
 });
+
+
+
+
 require.alias("component-event/index.js", "devicez/deps/event/index.js");
 require.alias("component-event/index.js", "event/index.js");
+
+require.alias("segmentio-extend/index.js", "devicez/deps/extend/index.js");
+require.alias("segmentio-extend/index.js", "extend/index.js");
 
 require.alias("devicez/index.js", "devicez/index.js");
