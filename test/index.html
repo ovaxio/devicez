@@ -27,12 +27,12 @@
 <script type="text/javascript" src="libs/build.js"></script>
 <script type="text/javascript">
 Devicez = require('devicez');
-// console.re.log('test');
+
 events = require('event');
 device = new Devicez();
 
 function test(){
-  document.getElementById('result').innerHTML = device.currentOrientation.name;
+  document.getElementById('result').innerHTML = device.orientation.name;
   document.getElementById('object').innerHTML = JSON.stringify(device,null, " ");
 }
 test();

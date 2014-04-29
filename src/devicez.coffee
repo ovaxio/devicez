@@ -30,10 +30,11 @@ class Devicez
         tablet : 960
 
     @options = extend {}, defaults, @options
-    @what = @isWhat()
-    @currentOrientation =
-      name : @orientation()
-      value : @orientationValue()
+
+    @device = @getDevice()
+    @orientation =
+      name : @getOrientation()
+      value : @getOrientationValue()
 
     # return the default orientation of a device
     @defaultOrientation = ((_this)->
@@ -41,7 +42,7 @@ class Devicez
         return false
       else
         wO = parseInt window.orientation, 10
-        o = _this.orientation()
+        o = _this.getOrientation()
         return if (wO is 0 or wO is 180) then o else inverse(o)
       )(@)
 
@@ -56,10 +57,10 @@ class Devicez
   #  --------------------------------------------------------------------
   onResize :()=>
     # emitter.emit 'changeOrientation'
-    @currentOrientation =
-      name : @orientation()
-      value : @orientationValue()
-    @what = @isWhat()
+    @orientation =
+      name : @getOrientation()
+      value : @getOrientationValue()
+    @device = @getDevice()
     return
 
   # Method width
@@ -84,18 +85,11 @@ class Devicez
       document.body.clientHeight, document.documentElement.clientHeight
     )
 
-  # Method orientation
-  #
-  #  Return landscape/portrait as the orientation of the device
-  #  --------------------------------------------------------------------
-  orientation :()=>
-    return if @width() > @height() then 'landscape' else 'portrait'
-
   # Method isWhat
   #
   #  Return desktop/tablet/mobile as the type of device
   #  --------------------------------------------------------------------
-  isWhat :()->
+  getDevice :()->
     if @width() <= @options.breakpoints.mobile
       return 'mobile'
     else if @width() <= @options.breakpoints.tablet
@@ -103,11 +97,27 @@ class Devicez
     else
       return 'desktop'
 
+  is_mobile :()->
+    return @device is 'mobile'
+
+  is_tablet :()->
+    return @device is 'tablet'
+
+  is_desktop :()->
+    return @device is 'desktop'
+
+  # Method orientation
+  #
+  #  Return landscape/portrait as the orientation of the device
+  #  --------------------------------------------------------------------
+  getOrientation :()=>
+    return if @width() > @height() then 'landscape' else 'portrait'
+
   # Method orientationValue
   #
   #  Return the value of the property orientation of object window if present
   #  --------------------------------------------------------------------
-  orientationValue : ()->
+  getOrientationValue :()->
     return if window.orientation? then window.orientation else false
 
 module.exports = Devicez

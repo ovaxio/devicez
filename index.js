@@ -19,7 +19,7 @@
     function Devicez(options) {
       var defaults;
       this.options = options;
-      this.orientation = __bind(this.orientation, this);
+      this.getOrientation = __bind(this.getOrientation, this);
       this.onResize = __bind(this.onResize, this);
       defaults = {
         breakpoints: {
@@ -28,10 +28,10 @@
         }
       };
       this.options = extend({}, defaults, this.options);
-      this.what = this.isWhat();
-      this.currentOrientation = {
-        name: this.orientation(),
-        value: this.orientationValue()
+      this.device = this.getDevice();
+      this.orientation = {
+        name: this.getOrientation(),
+        value: this.getOrientationValue()
       };
       this.defaultOrientation = (function(_this) {
         var o, wO;
@@ -39,7 +39,7 @@
           return false;
         } else {
           wO = parseInt(window.orientation, 10);
-          o = _this.orientation();
+          o = _this.getOrientation();
           if (wO === 0 || wO === 180) {
             return o;
           } else {
@@ -51,11 +51,11 @@
     }
 
     Devicez.prototype.onResize = function() {
-      this.currentOrientation = {
-        name: this.orientation(),
-        value: this.orientationValue()
+      this.orientation = {
+        name: this.getOrientation(),
+        value: this.getOrientationValue()
       };
-      this.what = this.isWhat();
+      this.device = this.getDevice();
     };
 
     Devicez.prototype.width = function() {
@@ -66,15 +66,7 @@
       return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight, document.body.clientHeight, document.documentElement.clientHeight);
     };
 
-    Devicez.prototype.orientation = function() {
-      if (this.width() > this.height()) {
-        return 'landscape';
-      } else {
-        return 'portrait';
-      }
-    };
-
-    Devicez.prototype.isWhat = function() {
+    Devicez.prototype.getDevice = function() {
       if (this.width() <= this.options.breakpoints.mobile) {
         return 'mobile';
       } else if (this.width() <= this.options.breakpoints.tablet) {
@@ -84,7 +76,27 @@
       }
     };
 
-    Devicez.prototype.orientationValue = function() {
+    Devicez.prototype.is_mobile = function() {
+      return this.device === 'mobile';
+    };
+
+    Devicez.prototype.is_tablet = function() {
+      return this.device === 'tablet';
+    };
+
+    Devicez.prototype.is_desktop = function() {
+      return this.device === 'desktop';
+    };
+
+    Devicez.prototype.getOrientation = function() {
+      if (this.width() > this.height()) {
+        return 'landscape';
+      } else {
+        return 'portrait';
+      }
+    };
+
+    Devicez.prototype.getOrientationValue = function() {
       if (window.orientation != null) {
         return window.orientation;
       } else {
