@@ -1,13 +1,13 @@
 
-# browserz
+# DeviceZ
 
-  Some test in browser
+  Some test about your device
 
 ## Installation
 
   Install with [component(1)](http://component.io):
 
-    $ component install ovaxio/browserz
+    $ component install ovaxio/devicez
 
 ## API
 
