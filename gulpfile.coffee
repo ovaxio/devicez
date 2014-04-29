@@ -8,6 +8,7 @@ stylus = require 'gulp-stylus'
 concat = require 'gulp-concat'
 uglify = require 'gulp-uglify'
 util = require 'gulp-util'
+plumber = require 'gulp-plumber'
 component = require 'gulp-component'
 changed = require 'gulp-changed'
 livereload = require 'gulp-livereload'
@@ -34,6 +35,7 @@ paths =
 #--------
 gulp.task 'coffeescript', ()->
   gulp.src paths.src.scripts
+    .pipe plumber()
     .pipe coffee()
     .pipe concat 'index.js'
     .pipe size
@@ -45,6 +47,7 @@ gulp.task 'coffeescript', ()->
 #--------
 gulp.task 'build', ()->
   gulp.src paths.component.src
+    .pipe plumber()
     .pipe component
       standalone: false
     .pipe gulp.dest paths.component.build

@@ -1,5 +1,5 @@
 {
-  "name": "browserz",
+  "name": "devicez",
   "version": "0.0.1",
   "devDependencies": {
     "gulp-concat": "latest",
@@ -17,6 +17,7 @@
     "tiny-lr": "0.0.5",
     "open": "0.0.4",
     "gulp-autoprefixer": "0.0.7",
-    "gulp-size": "^0.3.0"
+    "gulp-size": "^0.3.0",
+    "gulp-plumber": "^0.6.1"
   }
 }
