@@ -38,22 +38,22 @@ The name property of this object can be `portrait` or `landscape`
 }
 ```
 
-## defaultOrientation
+### defaultOrientation
 The defaultOrientation property is not available on desktop. It can take the `portrait` or `landscape` value
 
-## width()
+### width()
 Return the actual width of the viewport
 
-## height()
+### height()
 Return the actual height of the viewport
 
-## is_mobile()
+### is_mobile()
 Return true if the device is a mobile
 
-## is_tablet()
+### is_tablet()
 Return true if the device is a tablet
 
-## is_desktop()
+### is_desktop()
 Return true if the device is a desktop
 
 ## Test
