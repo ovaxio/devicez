@@ -17,27 +17,34 @@
     function Devicez() {
       this.orientation = __bind(this.orientation, this);
       this.onResize = __bind(this.onResize, this);
-      this.currentOrientation = this.orientation();
       this.what = this.isWhat();
-      events.bind(window, 'resize', this.onResize);
-      this.defaultOrientation = (function() {
+      this.currentOrientation = {
+        name: this.orientation(),
+        value: this.orientationValue()
+      };
+      this.defaultOrientation = (function(_this) {
         var o, wO;
         if (window.orientation == null) {
-          return null;
-        }
-        wO = window.orientation;
-        o = this.orientation();
-        if (wO === 0 || wO === 180) {
-          return o;
+          return false;
         } else {
-          return this.inverse(o);
+          wO = parseInt(window.orientation, 10);
+          o = _this.orientation();
+          if (wO === 0 || wO === 180) {
+            return o;
+          } else {
+            return inverse(o);
+          }
         }
-      })();
+      })(this);
+      events.bind(window, 'resize', this.onResize);
     }
 
     Devicez.prototype.onResize = function() {
-      this.currentOrientation = this.orientation();
-      return this.what = this.isWhat();
+      this.currentOrientation = {
+        name: this.orientation(),
+        value: this.orientationValue()
+      };
+      this.what = this.isWhat();
     };
 
     Devicez.prototype.width = function() {
@@ -63,6 +70,14 @@
         return 'tablet';
       } else {
         return 'desktop';
+      }
+    };
+
+    Devicez.prototype.orientationValue = function() {
+      if (window.orientation != null) {
+        return window.orientation;
+      } else {
+        return false;
       }
     };
 
