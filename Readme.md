@@ -11,6 +11,51 @@
 
 ## API
 
+```
+DeviceZ = require('devicez');
+device = new DeviceZ();
+```
+### options
+Default options. To change the breakpoints, just pass the new options object as param to the constructor
+```
+{
+  "breakpoints": {
+   "mobile": 767,
+   "tablet": 960
+}
+```
+
+### device
+The device property can take 3 different values `desktop`, `tablet`, `mobile`. Calculate with the breakpoints
+
+### orientation
+The orientation property is an object that contain the orientation of the device and the integer value of it (this value is not available on desktop)
+The name property of this object can be `portrait` or `landscape`
+```
+{
+  "name": "landscape",
+  "value": false
+}
+```
+
+## defaultOrientation
+The defaultOrientation property is not available on desktop. It can take the `portrait` or `landscape` value
+
+## width()
+Return the actual width of the viewport
+
+## height()
+Return the actual height of the viewport
+
+## is_mobile()
+Return true if the device is a mobile
+
+## is_tablet()
+Return true if the device is a tablet
+
+## is_desktop()
+Return true if the device is a desktop
+
 ## Test
 http://ovaxio.github.io/devicez/test/
 
