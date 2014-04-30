@@ -1,7 +1,7 @@
 {
   "name": "devicez",
-  "repo": "ovaxio/browserz",
-  "description": "Some test on the device",
+  "repo": "ovaxio/devicez",
+  "description": "Give you the layout (desktop/portrait), the kind of device (mobile/tablet/desktop) from the breakpoint given and some other usefull properties",
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
