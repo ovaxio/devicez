@@ -1,4 +1,3 @@
-
 # DeviceZ
 
   Some test about your device
@@ -56,7 +55,7 @@ Return true if the device is a tablet
 ### is_desktop()
 Return true if the device is a desktop
 
-## Test
+## Demo
 http://ovaxio.github.io/devicez/test/
 
 ## License
