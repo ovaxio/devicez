@@ -1,5 +1,7 @@
 # DeviceZ
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ovaxio/devicez.svg)](https://greenkeeper.io/)
+
   Some test about your device
 
 ## Installation
